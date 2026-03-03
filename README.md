@@ -2,6 +2,10 @@
 
 An iOS privacy protection feature that uses the front camera and on-device Vision framework to detect when someone is peeking at your screen and when you look away -- then progressively obscures sensitive content in real time.
 
+<p align="center">
+  <video src="https://github.com/mladjan/PrivacyScreen/raw/main/demo.mp4" width="300" autoplay loop muted playsinline></video>
+</p>
+
 ## Features
 
 - **Gaze-based progressive overlay** -- content fades to black (or blur) as you turn your head away from the screen. Fully transparent when looking straight, fully obscured when looking far off.
@@ -71,8 +75,6 @@ privacyController.stopMonitoring()
 - Front-facing camera access
 
 ## Demo
-
-https://github.com/mladjan/PrivacyScreen/raw/main/demo.mp4
 
 The included `DemoViewController` shows a styled card with sample sensitive data, a toggle to enable/disable monitoring, and a settings sheet for configuring sensitivity, overlay mode, and peek policy.
 
