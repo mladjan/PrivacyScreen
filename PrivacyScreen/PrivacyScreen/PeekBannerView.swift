@@ -15,15 +15,19 @@ final class PeekBannerView: UIView {
 
     private let containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.systemRed.withAlphaComponent(0.9)
-        view.layer.cornerRadius = 12
+        view.backgroundColor = UIColor.systemRed
+        view.layer.cornerRadius = 16
         view.layer.cornerCurve = .continuous
+        view.layer.shadowColor = UIColor.systemRed.cgColor
+        view.layer.shadowOpacity = 0.4
+        view.layer.shadowOffset = CGSize(width: 0, height: 4)
+        view.layer.shadowRadius = 12
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
     private let iconView: UIImageView = {
-        let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .semibold)
+        let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .bold)
         let image = UIImage(systemName: "eye.trianglebadge.exclamationmark", withConfiguration: config)
         let view = UIImageView(image: image)
         view.tintColor = .white
@@ -34,9 +38,10 @@ final class PeekBannerView: UIView {
 
     private let label: UILabel = {
         let label = UILabel()
-        label.text = "Privacy warning: someone may be peeking"
-        label.font = .systemFont(ofSize: 14, weight: .medium)
+        label.text = "Someone may be looking at your screen!"
+        label.font = .systemFont(ofSize: 16, weight: .bold)
         label.textColor = .white
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -75,19 +80,18 @@ final class PeekBannerView: UIView {
 
         NSLayoutConstraint.activate([
             top,
-            containerView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            containerView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 16),
-            containerView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -16),
+            containerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            containerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
 
-            iconView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 14),
+            iconView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
             iconView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            iconView.widthAnchor.constraint(equalToConstant: 20),
-            iconView.heightAnchor.constraint(equalToConstant: 20),
+            iconView.widthAnchor.constraint(equalToConstant: 28),
+            iconView.heightAnchor.constraint(equalToConstant: 28),
 
-            label.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: 8),
-            label.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -14),
-            label.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10),
-            label.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -10),
+            label.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: 12),
+            label.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+            label.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 14),
+            label.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -14),
         ])
     }
 

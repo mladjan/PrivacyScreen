@@ -154,7 +154,8 @@ final class DemoViewController: UIViewController {
         let row = UIStackView(arrangedSubviews: [avatar, textStack])
         row.axis = .horizontal
         row.spacing = 10
-        row.alignment = .top
+        row.alignment = .center
+        row.distribution = .fill
         return row
     }
 
@@ -340,12 +341,12 @@ final class DemoViewController: UIViewController {
 
         NSLayoutConstraint.activate([
             headerRow.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 20),
-            headerRow.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20),
-            headerRow.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20),
+            headerRow.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 16),
+            headerRow.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -16),
 
             scrollView.topAnchor.constraint(equalTo: headerRow.bottomAnchor, constant: 16),
             scrollView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 12),
-            scrollView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20),
+            scrollView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -12),
             scrollView.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: -20),
 
             dataRows.topAnchor.constraint(equalTo: scrollView.topAnchor),
