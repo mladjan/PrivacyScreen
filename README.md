@@ -2,9 +2,7 @@
 
 An iOS privacy protection feature that uses the front camera and on-device Vision framework to detect when someone is peeking at your screen and when you look away -- then progressively obscures sensitive content in real time.
 
-<p align="center">
-  <video src="https://github.com/mladjan/PrivacyScreen/raw/main/demo.mp4" width="300" autoplay loop muted playsinline></video>
-</p>
+https://github.com/mladjan/PrivacyScreen/raw/main/demo.mp4
 
 ## Features
 
