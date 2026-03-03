@@ -36,8 +36,8 @@ final class DemoViewController: UIViewController {
 
     private let privacyController = PrivacyScreenController()
     private var selectedSensitivity: PrivacyMonitorSensitivity = .normal
-    private var selectedMode: PrivacyOverlayMode = .blackout
-    private var selectedPolicy: PeekPolicy = .warnOnly
+    private var selectedMode: PrivacyOverlayMode = .blur
+    private var selectedPolicy: PeekPolicy = .blackoutOnPeek
 
     // MARK: - Background gradient
 
@@ -96,7 +96,7 @@ final class DemoViewController: UIViewController {
 
     private let cardIcon: UIImageView = {
         let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .semibold)
-        let image = UIImage(systemName: "lock.doc.fill", withConfiguration: config)
+        let image = UIImage(systemName: "message.fill", withConfiguration: config)
         let view = UIImageView(image: image)
         view.tintColor = .accent
         view.contentMode = .scaleAspectFit
@@ -105,45 +105,93 @@ final class DemoViewController: UIViewController {
 
     private let cardHeaderLabel: UILabel = {
         let label = UILabel()
-        label.text = "Sensitive Information"
+        label.text = "Messages"
         label.font = .systemFont(ofSize: 15, weight: .semibold)
         label.textColor = .accent
         return label
     }()
 
-    private func makeDataRow(label: String, value: String) -> UIStackView {
-        let l = UILabel()
-        l.text = label
-        l.font = .systemFont(ofSize: 14, weight: .regular)
-        l.textColor = .secondaryLabel
-        l.setContentHuggingPriority(.required, for: .horizontal)
+    private func makeMessageRow(sender: String, message: String, time: String) -> UIView {
+        let avatar = UILabel()
+        avatar.text = String(sender.prefix(1))
+        avatar.font = .systemFont(ofSize: 13, weight: .bold)
+        avatar.textColor = .white
+        avatar.textAlignment = .center
+        avatar.backgroundColor = .accent.withAlphaComponent(0.7)
+        avatar.layer.cornerRadius = 15
+        avatar.clipsToBounds = true
+        avatar.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            avatar.widthAnchor.constraint(equalToConstant: 30),
+            avatar.heightAnchor.constraint(equalToConstant: 30),
+        ])
 
-        let v = UILabel()
-        v.text = value
-        v.font = .monospacedSystemFont(ofSize: 15, weight: .medium)
-        v.textColor = .label
-        v.textAlignment = .right
+        let nameLabel = UILabel()
+        nameLabel.text = sender
+        nameLabel.font = .systemFont(ofSize: 14, weight: .semibold)
+        nameLabel.textColor = .label
 
-        let row = UIStackView(arrangedSubviews: [l, v])
+        let timeLabel = UILabel()
+        timeLabel.text = time
+        timeLabel.font = .systemFont(ofSize: 11, weight: .regular)
+        timeLabel.textColor = .tertiaryLabel
+        timeLabel.setContentHuggingPriority(.required, for: .horizontal)
+
+        let topRow = UIStackView(arrangedSubviews: [nameLabel, UIView(), timeLabel])
+        topRow.axis = .horizontal
+        topRow.alignment = .center
+
+        let msgLabel = UILabel()
+        msgLabel.text = message
+        msgLabel.font = .systemFont(ofSize: 13, weight: .regular)
+        msgLabel.textColor = .secondaryLabel
+        msgLabel.numberOfLines = 2
+
+        let textStack = UIStackView(arrangedSubviews: [topRow, msgLabel])
+        textStack.axis = .vertical
+        textStack.spacing = 2
+
+        let row = UIStackView(arrangedSubviews: [avatar, textStack])
         row.axis = .horizontal
-        row.distribution = .fill
+        row.spacing = 10
+        row.alignment = .top
         return row
     }
 
     private lazy var dataRows: UIStackView = {
         let rows = UIStackView(arrangedSubviews: [
-            makeDataRow(label: "SSN", value: "123-45-6789"),
+            makeMessageRow(
+                sender: "Alice",
+                message: "Hey! The confirmation code is 847291. Don't share it with anyone.",
+                time: "2m ago"
+            ),
             makeSeparator(),
-            makeDataRow(label: "Card", value: "**** **** **** 4242"),
+            makeMessageRow(
+                sender: "Bob",
+                message: "Your account password has been reset to Tr0ub4dor&3. Change it ASAP.",
+                time: "15m ago"
+            ),
             makeSeparator(),
-            makeDataRow(label: "Expiry", value: "09/28"),
+            makeMessageRow(
+                sender: "Mom",
+                message: "The wifi password at the new place is SunnyDays#2024. See you soon!",
+                time: "1h ago"
+            ),
             makeSeparator(),
-            makeDataRow(label: "Balance", value: "$12,345.67"),
+            makeMessageRow(
+                sender: "David",
+                message: "Wire transfer of $8,500 sent to your account ending in 4217.",
+                time: "3h ago"
+            ),
             makeSeparator(),
-            makeDataRow(label: "Routing", value: "021000021"),
+            makeMessageRow(
+                sender: "Eve",
+                message: "Meeting moved to tomorrow. The door code is 5523#. Don't be late!",
+                time: "5h ago"
+            ),
         ])
         rows.axis = .vertical
-        rows.spacing = 10
+        rows.spacing = 12
         return rows
     }()
 
