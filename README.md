@@ -72,6 +72,8 @@ privacyController.stopMonitoring()
 
 ## Demo
 
+https://github.com/mladjan/PrivacyScreen/raw/main/demo.mp4
+
 The included `DemoViewController` shows a styled card with sample sensitive data, a toggle to enable/disable monitoring, and a settings sheet for configuring sensitivity, overlay mode, and peek policy.
 
 ## Tests
