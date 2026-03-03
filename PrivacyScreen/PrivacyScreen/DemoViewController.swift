@@ -189,6 +189,36 @@ final class DemoViewController: UIViewController {
                 message: "Meeting moved to tomorrow. The door code is 5523#. Don't be late!",
                 time: "5h ago"
             ),
+            makeSeparator(),
+            makeMessageRow(
+                sender: "Frank",
+                message: "Your 2FA recovery codes: 8842-1190, 3347-5521, 6619-0037. Store safely.",
+                time: "6h ago"
+            ),
+            makeSeparator(),
+            makeMessageRow(
+                sender: "Grace",
+                message: "Sent you the API key: sk_live_49dKc8wPm3nT. Rotate it after setup.",
+                time: "8h ago"
+            ),
+            makeSeparator(),
+            makeMessageRow(
+                sender: "Henry",
+                message: "Insurance claim #PCY-20241087 approved. Payout: $3,200 to your Visa.",
+                time: "12h ago"
+            ),
+            makeSeparator(),
+            makeMessageRow(
+                sender: "Isla",
+                message: "Here's the shared drive link with all tax docs. Password is Mar$2024!",
+                time: "1d ago"
+            ),
+            makeSeparator(),
+            makeMessageRow(
+                sender: "Jack",
+                message: "Your flight is confirmed: LAX→JFK, seat 14A. Booking ref XKPT72.",
+                time: "1d ago"
+            ),
         ])
         rows.axis = .vertical
         rows.spacing = 12
@@ -297,18 +327,32 @@ final class DemoViewController: UIViewController {
         headerRow.axis = .horizontal
         headerRow.spacing = 8
         headerRow.alignment = .center
+        headerRow.translatesAutoresizingMaskIntoConstraints = false
+        cardView.addSubview(headerRow)
 
-        let cardContent = UIStackView(arrangedSubviews: [headerRow, dataRows])
-        cardContent.axis = .vertical
-        cardContent.spacing = 16
-        cardContent.translatesAutoresizingMaskIntoConstraints = false
-        cardView.addSubview(cardContent)
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.showsVerticalScrollIndicator = false
+        cardView.addSubview(scrollView)
+
+        dataRows.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(dataRows)
 
         NSLayoutConstraint.activate([
-            cardContent.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 20),
-            cardContent.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20),
-            cardContent.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20),
-            cardContent.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: -20),
+            headerRow.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 20),
+            headerRow.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20),
+            headerRow.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20),
+
+            scrollView.topAnchor.constraint(equalTo: headerRow.bottomAnchor, constant: 16),
+            scrollView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20),
+            scrollView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20),
+            scrollView.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: -20),
+
+            dataRows.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            dataRows.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            dataRows.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            dataRows.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            dataRows.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
         ])
         view.addSubview(cardView)
 
@@ -338,9 +382,10 @@ final class DemoViewController: UIViewController {
             topBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: margin),
             topBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -margin),
 
-            cardView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20),
+            cardView.topAnchor.constraint(equalTo: topBar.bottomAnchor, constant: 16),
             cardView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: margin),
             cardView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -margin),
+            cardView.bottomAnchor.constraint(equalTo: bottomBar.topAnchor, constant: -16),
 
             bottomBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             bottomBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),

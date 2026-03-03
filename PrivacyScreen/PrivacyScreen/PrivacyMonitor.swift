@@ -108,19 +108,9 @@ final class PrivacyMonitor {
         let actions = stateMachine.process(result)
         execute(actions)
 
-        // 2. Compute overlay intensity.
-        //    Deviation ≤ 1.0 (within threshold) → no overlay.
-        //    Deviation 1.0…2.0 → remapped to 0…1 (smooth ramp to full blackout).
-        let intensity: CGFloat
-        if peekBlackoutForced {
-            intensity = 1.0
-        } else if result.faceCount == 0 {
-            intensity = 1.0
-        } else if result.gazeDeviation <= 1.0 {
-            intensity = 0
-        } else {
-            intensity = min(result.gazeDeviation - 1.0, 1.0)
-        }
+        // 2. Overlay intensity driven only by peek detection.
+        //    No gaze-angle fading — only peekBlackoutForced triggers overlay.
+        let intensity: CGFloat = peekBlackoutForced ? 1.0 : 0.0
 
         #if DEBUG
         print(String(
