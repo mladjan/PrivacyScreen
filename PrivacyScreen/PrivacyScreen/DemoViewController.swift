@@ -344,7 +344,7 @@ final class DemoViewController: UIViewController {
             headerRow.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20),
 
             scrollView.topAnchor.constraint(equalTo: headerRow.bottomAnchor, constant: 16),
-            scrollView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20),
+            scrollView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 12),
             scrollView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20),
             scrollView.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: -20),
 
